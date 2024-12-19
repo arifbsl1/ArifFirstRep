@@ -1,0 +1,30 @@
+version: '4'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysqlcontainercompose
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sms-test
+    ports:
+      - "3308:3306"
+    networks:
+      - springboot-mysql-network
+
+  springboot-app:
+    build: .
+    container_name: springboot-container-composer
+    ports:
+      - "8184:8182"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sms-test
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - springboot-mysql-network
+    depends_on:
+      - mysql
+
+networks:
+  springboot-mysql-network:
+    driver: bridge
