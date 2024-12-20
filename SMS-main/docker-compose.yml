@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sms-test
     ports:
-      - "3308:3306"
+      - "3306:3306"
     networks:
       - springboot-mysql-network
 
@@ -15,7 +15,7 @@ services:
     build: .
     container_name: springboot-container-composer
     ports:
-      - "8184:8182"
+      - "8182:8182"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sms-test
       SPRING_DATASOURCE_USERNAME: root
